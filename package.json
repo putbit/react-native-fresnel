@@ -1,6 +1,6 @@
 {
   "name": "@putbit/react-native-fresnel",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "An SSR compatible approach to CSS media query based responsive layouts for React Native.",
   "main": "dist/index.js",
   "files": [
