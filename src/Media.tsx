@@ -12,6 +12,7 @@ import {
   useIsFirstRender,
 } from "./Utils"
 import { BreakpointConstraint } from "./Breakpoints"
+import { clearContainers } from "./util/clearContainers"
 
 /**
  * A render prop that can be used to render a different container element than
@@ -218,19 +219,22 @@ export interface MediaContextProviderProps<M> {
   disableDynamicMediaQueries?: boolean
 }
 
-export interface CreateMediaConfig {
+export interface CreateMediaConfig<
+  BreakpointKey extends string,
+  Interaction extends string
+> {
   /**
    * The breakpoint definitions for your application. Width definitions should
    * start at 0.
    *
    * @see {@link createMedia}
    */
-  breakpoints: { [key: string]: number | string }
+  breakpoints: Record<BreakpointKey, number | string>
 
   /**
    * The interaction definitions for your application.
    */
-  interactions?: { [key: string]: string }
+  interactions?: Record<Interaction, string>
 }
 
 export interface CreateMediaResults<BreakpointKey, Interactions> {
@@ -322,10 +326,11 @@ export interface CreateMediaResults<BreakpointKey, Interactions> {
  *
  */
 export function createMedia<
-  MediaConfig extends CreateMediaConfig,
-  BreakpointKey extends keyof MediaConfig["breakpoints"],
-  Interaction extends keyof MediaConfig["interactions"]
->(config: MediaConfig): CreateMediaResults<BreakpointKey, Interaction> {
+  BreakpointKey extends string,
+  Interaction extends string
+>(
+  config: CreateMediaConfig<BreakpointKey, Interaction>
+): CreateMediaResults<BreakpointKey, Interaction> {
   const breakpoints = castBreakpointsToIntegers(config.breakpoints)
 
   const mediaQueries = new MediaQueries<BreakpointKey>(
@@ -493,8 +498,7 @@ export function createMedia<
      * on initial hydration.
      */
     if (isClient && isFirstRender && !renderChildren) {
-      const containerEls = document.getElementsByClassName(uniqueComponentId)
-      Array.from(containerEls).forEach(el => (el.innerHTML = ""))
+      clearContainers(uniqueComponentId)
     }
 
     return (

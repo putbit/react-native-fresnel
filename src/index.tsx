@@ -1,2 +1,2 @@
-export { createMedia } from "./Media"
+export { createMedia } from "./MediaReactNative"
 export { BreakpointConstraint as BreakpointKey } from "./Breakpoints"

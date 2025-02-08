@@ -1,6 +1,6 @@
-# @artsy/fresnel
+# @putbit/react-native-fresnel
 
-[![CircleCI][ci-icon]][ci] [![npm version][npm-icon]][npm]
+A fork of [@artsy/fresnel](https://github.com/artsy/fresnel) for React Native.
 
 > The Fresnel equations describe the reflection of light when incident on an
 > interface between different optical media.
@@ -10,11 +10,14 @@
 ## Installation
 
 ```sh
-  # React 18+
-  yarn add @artsy/fresnel
+  yarn add @putbit/react-native-fresnel @expo/match-media
+```
 
-  # React 17
-  yarn add @artsy/fresnel@6
+For this to work on native, make sure `@expo/match-media` is imported in your app root layout:
+
+```typescript
+import '@expo/match-media';
+...
 ```
 
 **Table of Contents**
@@ -52,7 +55,7 @@ directly in CSS/HTML:
 <div class="my-container" />
 ```
 
-By hooking into a breakpoint definition, `@artsy/fresnel` takes this declarative
+By hooking into a breakpoint definition, `@putbit/react-native-fresnel` takes this declarative
 approach and brings it into the React world.
 
 ## Basic Example
@@ -60,7 +63,7 @@ approach and brings it into the React world.
 ```tsx
 import React from "react"
 import ReactDOM from "react-dom"
-import { createMedia } from "@artsy/fresnel"
+import { createMedia } from "@putbit/react-native-fresnel"
 
 const { MediaContextProvider, Media } = createMedia({
   // breakpoints values can be either strings or integers
@@ -92,7 +95,7 @@ ReactDOM.render(<App />, document.getElementById("react"))
 ## Server-side Rendering (SSR) Usage
 
 The first important thing to note is that when server-rendering with
-`@artsy/fresnel`, all breakpoints get rendered by the server. Each `Media`
+`@putbit/react-native-fresnel`, all breakpoints get rendered by the server. Each `Media`
 component is wrapped by plain CSS that will only show that breakpoint if it
 matches the user's current browser size. This means that the client can
 accurately start rendering the HTML/CSS while it receives the markup, which is
@@ -108,13 +111,13 @@ over the DOM and removes markup that is unneeded, via a `matchMedia` call.
 
 ### SSR Example
 
-First, configure `@artsy/fresnel` in a `Media` file that can be shared across
+First, configure `@putbit/react-native-fresnel` in a `Media` file that can be shared across
 the app:
 
 ```tsx
 // Media.tsx
 
-import { createMedia } from "@artsy/fresnel"
+import { createMedia } from "@putbit/react-native-fresnel"
 
 const ExampleAppMedia = createMedia({
   breakpoints: {
@@ -181,7 +184,7 @@ app.get("/", (_req, res) => {
   res.send(`
     <html>
       <head>
-        <title>@artsy/fresnel - SSR Example</title>
+        <title>@putbit/react-native-fresnel - SSR Example</title>
 
         <!–– Inject the generated styles into the page head -->
         <style type="text/css">${mediaStyle}</style>
@@ -206,7 +209,7 @@ need to use a user-agent or other server-side "hints".
 
 ## Usage with Gatsby or Next
 
-`@artsy/fresnel` works great with Gatsby or Next.js's static hybrid approach to
+`@putbit/react-native-fresnel` works great with Gatsby or Next.js's static hybrid approach to
 rendering. See the examples below for a simple implementation.
 
 ## Example Apps
@@ -218,7 +221,7 @@ There are four examples one can explore in the `/examples` folder:
 - [Next](examples/nextjs)
 - [Kitchen Sink](examples/kitchen-sink)
 
-While the `Basic` and `SSR` examples will get one pretty far, `@artsy/fresnel`
+While the `Basic` and `SSR` examples will get one pretty far, `@putbit/react-native-fresnel`
 can do a lot more. For an exhaustive deep-dive into its features, check out the
 [Kitchen Sink](examples/kitchen-sink) app.
 
@@ -444,7 +447,7 @@ It’s advisable to do this setup in its own module so that it can be easily
 imported throughout your application:
 
 ```tsx
-import { createMedia } from "@artsy/fresnel"
+import { createMedia } from "@putbit/react-native-fresnel"
 
 const ExampleAppMedia = createMedia({
   breakpoints: {
@@ -655,7 +658,7 @@ then use the `Skip Release` tag along side the appropriate version tag.
 
 [ci]: https://circleci.com/gh/artsy/fresnel
 [ci-icon]: https://circleci.com/gh/artsy/fresnel.svg?style=shield
-[npm]: https://www.npmjs.com/package/@artsy/fresnel
+[npm]: https://www.npmjs.com/package/@putbit/react-native-fresnel
 [npm-icon]: https://badge.fury.io/js/%40artsy%2Ffresnel.svg
 [react-responsive]: https://github.com/contra/react-responsive
 [react-media]: https://github.com/ReactTraining/react-media
