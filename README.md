@@ -1,6 +1,9 @@
 # @putbit/react-native-fresnel
 
-A fork of [@artsy/fresnel](https://github.com/artsy/fresnel) for React Native.
+A fork of [@artsy/fresnel](https://github.com/artsy/fresnel) for React Native. 
+
+Intended for use with universal react-native apps that use Next.js with SSR on web. It's not necessary for native-only apps,
+but it doesn't hurt anything if you like the interface.
 
 > The Fresnel equations describe the reflection of light when incident on an
 > interface between different optical media.
